@@ -7,11 +7,11 @@
 function getComputerChoice() {
 let randomChoice = (Math.floor(Math.random() * 3));
   if (randomChoice === 0) {
-    return compRandom = 'rock';
+    return compRandom = 'Rock';
   } else if (randomChoice === 1) {
-    return compRandom = 'paper';
+    return compRandom = 'Paper';
   } else {
-    return compRandom = 'scissors';
+    return compRandom = 'Scissors';
   }
 }
 
@@ -21,8 +21,8 @@ let randomChoice = (Math.floor(Math.random() * 3));
 // else computer win
 
 function playRound(playerSelection, computerSelection) {
-  if ((playerSelection === 'rock' && computerSelection === 'scissors') || (playerSelection === 'paper' && computerSelection === 'rock') || 
-    (playerSelection === 'scissors' && computerSelection === 'paper')) {
+  if ((playerSelection === 'Rock' && computerSelection === 'Scissors') || (playerSelection === 'Paper' && computerSelection === 'Rock') || 
+    (playerSelection === 'Scissors' && computerSelection === 'Paper')) {
     return score += 1, result = `You Win! ${playerSelection} beats ${computerSelection}`;
   } else if (computerSelection === playerSelection) {
     return  tieScore +=1, result = 'It`s a Tie! Re-playing the round';
@@ -48,13 +48,23 @@ function gameScore() {
   }
 }
 
+// if player write (ROCK, Rock, rock, roCk) program should understand
+// input should be case insensitive
+// program takes a string and returns that string with only the first letter capitalized
+// then it go to playRound
+
+function caseInsensitive(string) {
+  let firstLetter = string.charAt(0);
+  return firstLetter.toUpperCase() + string.toLowerCase().slice(1);
+}
+
 function game() {
     let attempt = 5;
   for (i = 1; i <= attempt; i++) {
-    attempt = 5 + tieScore;
-    playerSelection = prompt('Your choice?');
+    const playerSelection = caseInsensitive(prompt('Your choice?'));
     const computerSelection = getComputerChoice();
     console.log(playRound(playerSelection, computerSelection));
+    attempt = 5 + tieScore;
   }
   gameScore();
 }
